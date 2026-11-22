@@ -38,17 +38,7 @@ jobs:
           echo "APP_ID=${{ secrets.APP_ID }}" > API_KEYS
           echo "APP_HASH=${{ secrets.APP_HASH }}" >> API_KEYS
 
-      - name: Build native dependencies (FFmpeg, BoringSSL, libvpx)
-        working-directory: TMessagesProj/jni
-        run: |
-          export NDK="$ANDROID_SDK_ROOT/ndk/21.4.7075529"
-          export NINJA_PATH="$(which ninja)"
-          chmod +x *.sh
-          ./build_ffmpeg_clang.sh
-          ./patch_ffmpeg.sh
-          ./patch_boringssl.sh
-          ./build_boringssl.sh
-          if [ -f build_libvpx_clang.sh ]; then ./build_libvpx_clang.sh; fi
+    
 
       - name: Build debug APK
         run: |
