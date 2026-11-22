@@ -39,6 +39,16 @@ jobs:
           echo "APP_ID=${{ secrets.APP_ID }}" > API_KEYS
           echo "APP_HASH=${{ secrets.APP_HASH }}" >> API_KEYS
 
+      - name: Set API keys in BuildVars
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_HASH: ${{ secrets.APP_HASH }}
+        run: |
+          test -n "$APP_ID" && test -n "$APP_HASH"
+          F=TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java
+          sed -i "s/public static int APP_ID = [0-9]*;/public static int APP_ID = ${APP_ID};/" $F
+          sed -i "s/public static String APP_HASH = \"[0-9a-f]*\";/public static String APP_HASH = \"${APP_HASH}\";/" $F
+
     
 
       - name: Build debug APK
