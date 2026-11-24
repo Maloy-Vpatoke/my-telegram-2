@@ -110,6 +110,7 @@ import org.telegram.messenger.BotForumHelper;
 import org.telegram.messenger.BotInlineKeyboard;
 import org.telegram.messenger.ChatMessageSharedResources;
 import org.telegram.messenger.ChatObject;
+import org.telegram.messenger.KeptDeleted;
 import org.telegram.utils.code.highlight.CodeHighlighting;
 import org.telegram.utils.twidget.WidgetSandboxTheme;
 import org.telegram.messenger.ContactsController;
@@ -11887,6 +11888,11 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                                  boolean topNear,
                                  boolean firstInChat,
                                  boolean lastInChatList) {
+        if (messageObject != null) {
+            boolean keptDeleted = KeptDeleted.contains(0, messageObject.getId())
+                    || KeptDeleted.contains(messageObject.getDialogId(), messageObject.getId());
+            setAlpha(keptDeleted ? 0.5f : 1f);
+        }
         if (attachedToWindow && !frozen) {
             setMessageContent(messageObject, groupedMessages, bottomNear, topNear, firstInChat, lastInChatList);
         } else {
