@@ -9398,7 +9398,7 @@ public class MessagesController extends BaseController implements NotificationCe
                 getMessagesStorage().updateDialogsWithDeletedMessages(dialogId, channelId, messages, null);
                 }
             }
-            if (cacheOnly  scheduled  quickReplies || welcomeMessages) getNotificationCenter().postNotificationName(NotificationCenter.messagesDeleted, messages, channelId, scheduled, false, movedToScheduled, movedToScheduledMessageId);
+            if (cacheOnly || scheduled || quickReplies || welcomeMessages) getNotificationCenter().postNotificationName(NotificationCenter.messagesDeleted, messages, channelId, scheduled, false, movedToScheduled, movedToScheduledMessageId);
         } else {
             if (taskRequest instanceof TLRPC.TL_channels_deleteMessages) {
                 channelId = ((TLRPC.TL_channels_deleteMessages) taskRequest).channel.channel_id;
