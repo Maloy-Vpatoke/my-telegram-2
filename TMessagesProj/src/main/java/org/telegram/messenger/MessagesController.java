@@ -17634,7 +17634,7 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     protected void deleteMessagesByPush(long dialogId, ArrayList<Integer> ids, long channelId) {
-        if (true) return
+        if (true) return;
         getMessagesStorage().getStorageQueue().postRunnable(() -> {
             AndroidUtilities.runOnUIThread(() -> {
                 getNotificationCenter().postNotificationName(NotificationCenter.messagesDeleted, ids, channelId, false);
